@@ -11,7 +11,7 @@ from kfp import kubernetes
 def get_data(data_output_path: OutputPath()):
     import urllib.request
     print("starting download...")
-    url = "https://raw.githubusercontent.com/rh-aiservices-bu/fraud-detection/main/data/card_transdata.csv"
+    url = "https://raw.githubusercontent.com/viniciusfcf/health-fraud-detection/main/data/ausencias_medicas.csv"
     urllib.request.urlretrieve(url, data_output_path)
     print("done")
 
@@ -34,20 +34,20 @@ def train_model(data_input_path: InputPath(), model_output_path: OutputPath()):
 
     # Load the CSV data which we will use to train the model.
     # It contains the following fields:
-    #   distancefromhome - The distance from home where the transaction happened.
-    #   distancefromlast_transaction - The distance from last transaction happened.
-    #   ratiotomedianpurchaseprice - Ratio of purchased price compared to median purchase price.
-    #   repeat_retailer - If it's from a retailer that already has been purchased from before.
-    #   used_chip - If the (credit card) chip was used.
-    #   usedpinnumber - If the PIN number was used.
-    #   online_order - If it was an online order.
-    #   fraud - If the transaction is fraudulent.
+    # distance_from_home - The distance from home where the medical appointment happened.
+    # number_licenses - Number licenses
+    # number_days - Number of days away
+    # repeat - If it's from a doctor that already has been before.
+    # hospital - If was in a hospital
+    # employment_temporary - true if is temporary, false otherwise
+    # online - If it was an online.
+    # fraud - If the is fraudulent.
     Data = pd.read_csv(data_input_path)
 
     # Set the input (X) and output (Y) data.
     # The only output data we have is if it's fraudulent or not, and all other fields go as inputs to the model.
 
-    X = Data.drop(columns = ['repeat_retailer','distance_from_home', 'fraud'])
+    X = Data.drop(columns = ['repeat','distance_from_home', 'fraud'])
     y = Data['fraud']
 
     # Split the data into training and testing sets so we have something to test the trained model with.

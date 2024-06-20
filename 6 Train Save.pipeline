@@ -15,7 +15,7 @@
           "app_data": {
             "component_parameters": {
               "dependencies": [
-                "data/card_transdata.csv"
+                "data/ausencias_medicas.csv"
               ],
               "include_subdirectories": true,
               "outputs": [

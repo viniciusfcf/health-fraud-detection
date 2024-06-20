@@ -60,7 +60,7 @@ deploymentSpec:
           '
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
           \ *\n\ndef get_data(data_output_path: OutputPath()):\n    import urllib.request\n\
-          \    print(\"starting download...\")\n    url = \"https://raw.githubusercontent.com/rh-aiservices-bu/fraud-detection/main/data/card_transdata.csv\"\
+          \    print(\"starting download...\")\n    url = \"https://raw.githubusercontent.com/rh-aiservices-bu/fraud-detection/main/data/ausencias_medicas.csv\"\
           \n    urllib.request.urlretrieve(url, data_output_path)\n    print(\"done\"\
           )\n\n"
         image: quay.io/modh/runtime-images:runtime-cuda-tensorflow-ubi9-python-3.9-2023b-20240301
@@ -103,14 +103,14 @@ deploymentSpec:
           \ the transaction happened.\n    #   distancefromlast_transaction - The\
           \ distance from last transaction happened.\n    #   ratiotomedianpurchaseprice\
           \ - Ratio of purchased price compared to median purchase price.\n    # \
-          \  repeat_retailer - If it's from a retailer that already has been purchased\
-          \ from before.\n    #   used_chip - If the (credit card) chip was used.\n\
-          \    #   usedpinnumber - If the PIN number was used.\n    #   online_order\
+          \  repeat - If it's from a retailer that already has been purchased\
+          \ from before.\n    #   hospital - If the (credit card) chip was used.\n\
+          \    #   usedpinnumber - If the PIN number was used.\n    #   online\
           \ - If it was an online order.\n    #   fraud - If the transaction is fraudulent.\n\
           \    Data = pd.read_csv(data_input_path)\n\n    # Set the input (X) and\
           \ output (Y) data.\n    # The only output data we have is if it's fraudulent\
           \ or not, and all other fields go as inputs to the model.\n\n    X = Data.drop(columns\
-          \ = ['repeat_retailer','distance_from_home', 'fraud'])\n    y = Data['fraud']\n\
+          \ = ['repeat','distance_from_home', 'fraud'])\n    y = Data['fraud']\n\
           \n    # Split the data into training and testing sets so we have something\
           \ to test the trained model with.\n\n    # X_train, X_test, y_train, y_test\
           \ = train_test_split(X,y, test_size = 0.2, stratify = y)\n    X_train, X_test,\
